@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semangat Bocil Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text {
+            display: flex;
+            font-size: 3rem;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            color: #fff;
+        }
+
+        .subtext {
+            margin-top: 20px;
+            font-size: 2rem;
+            color: #aaa;
+            font-family: Arial, sans-serif;
+        }
+
+        .letter {
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text" id="text-container"></div>
+        <div class="subtext" id="subtext"></div>
+    </div>
+
+    <script>
+        const textContainer = document.getElementById("text-container");
+        const subtext = document.getElementById("subtext");
+
+        // Text to animate
+        const mainText = "SEMANGAT YA BOCIL!";
+        const subText = "You Can Do It 💪";
+
+        // Delay between each letter animation
+        const delay = 150;
+
+        // Array of rainbow colors
+        const rainbowColors = [
+            "#FF0000", // Red
+            "#FF7F00", // Orange
+            "#FFFF00", // Yellow
+            "#00FF00", // Green
+            "#0000FF", // Blue
+            "#4B0082", // Indigo
+            "#9400D3"  // Violet
+        ];
+
+        // Function to animate letters
+        function animateText(text, container, delayTime) {
+            text.split("").forEach((letter, index) => {
+                const span = document.createElement("span");
+                span.classList.add("letter");
+                span.textContent = letter === " " ? "\u00A0" : letter; // Preserve spaces
+                
+                // Assign a rainbow color to each letter
+                span.style.color = rainbowColors[index % rainbowColors.length];
+                span.style.animationDelay = `${index * delayTime}ms`;
+                
+                container.appendChild(span);
+            });
+        }
+
+        // Animate the main text
+        animateText(mainText, textContainer, delay);
+
+        // Delay for subtext animation
+        setTimeout(() => {
+            subtext.textContent = subText;
+        }, mainText.length * delay);
+    </script>
+</body>
+</html>
